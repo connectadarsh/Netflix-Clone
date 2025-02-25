@@ -1,7 +1,8 @@
 
 
 import 'package:api_sample/colors.dart';
-import 'package:api_sample/screens/home_screeen.dart';
+import 'package:api_sample/view/control_bottom.dart';
+import 'package:api_sample/view/home_screeen.dart';
 import 'package:flutter/material.dart';
 
 void main(){
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Colours.scaffoldBgColor,
         // useMaterial3: true,
       ),
-    home: const HomeScreen(),
+    home: const ControlBottom(),
     );
   }
 }
