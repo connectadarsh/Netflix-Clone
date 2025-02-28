@@ -2,8 +2,14 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 class TrendingSlider extends StatelessWidget {
-  const TrendingSlider({
+  final double containerWidth;
+   final double containerHeight;
+      final double borderRadius;
+  const  TrendingSlider({
     super.key,
+    required this.containerWidth,
+     required this.containerHeight,
+     required this.borderRadius
   });
 
   @override
@@ -18,7 +24,7 @@ class TrendingSlider extends StatelessWidget {
       child: CarouselSlider.builder(
           itemCount: imagePaths.length,
           options: CarouselOptions(
-              height: 300,
+              height: containerHeight,
               autoPlay: true,
               viewportFraction: 0.55,
               autoPlayCurve: Curves.fastOutSlowIn,
@@ -27,14 +33,14 @@ class TrendingSlider extends StatelessWidget {
               pageSnapping: true),
           itemBuilder: (context, itemIndex, pageViewIndex) {
             return ClipRRect(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(borderRadius),
               child: Container(
-                height: 300,
-                width: 200,
+                height: containerHeight,
+                width: containerWidth,
                 // color: Colors.amber,
                 child: Image.asset(
                   imagePaths[itemIndex],
-                fit: BoxFit.cover                                 ,
+                fit: BoxFit.cover                                 
                   ),
               ),
             );

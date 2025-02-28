@@ -4,7 +4,15 @@ import 'package:api_sample/view/movie_detail.dart';
 import 'package:flutter/material.dart';
 
 class MoviesSlider extends StatefulWidget {
-  const MoviesSlider({super.key});
+    final double containerWidth;
+   final double containerHeight;
+      final double borderRadius;
+  const MoviesSlider({
+    super.key,
+       required this.containerWidth,
+     required this.containerHeight,
+     required this.borderRadius
+    });
 
   @override
   State<MoviesSlider> createState() => _MoviesSliderState();
@@ -32,7 +40,7 @@ class _MoviesSliderState extends State<MoviesSlider> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 200,
+      height: widget.containerHeight,
       width: double.infinity,
       child: FutureBuilder<List<Movie>>(
         future: _series,
@@ -54,7 +62,7 @@ class _MoviesSliderState extends State<MoviesSlider> {
               return Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(widget.borderRadius),
                   child: InkWell(
                     onTap: () {
                       Navigator.push(
@@ -63,8 +71,8 @@ class _MoviesSliderState extends State<MoviesSlider> {
                       );
                     },
                     child: SizedBox(
-                      height: 200,
-                      width: 150,
+                      height: widget.containerHeight,
+                      width: widget.containerWidth,
                       child: Image.network(  'https://image.tmdb.org/t/p/w500${movie.posterPath}',fit: BoxFit.cover,),
   
                     ),

@@ -53,7 +53,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 style: GoogleFonts.aBeeZee(fontSize: 20),
               ),
               SizedBox(height: 32),
-              const TrendingSlider(),
+              const TrendingSlider(
+                containerHeight: 300,
+                containerWidth: 200,
+                borderRadius: 12,
+              ),
               const SizedBox(
                 height: 32,
               ),
@@ -66,7 +70,11 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(
                 height: 32,
               ),
-              const MoviesSlider(),
+              const MoviesSlider(
+                borderRadius: 8,
+                containerHeight: 200,
+                containerWidth: 150,
+              ),
               const SizedBox(
                 height: 32,
               ),
@@ -77,7 +85,11 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(
                 height: 32,
               ),
-              const MoviesSlider(),
+              const MoviesSlider(
+                  borderRadius: 8,
+                containerHeight: 200,
+                containerWidth: 150,
+              ),
             ],
           ),
         ),

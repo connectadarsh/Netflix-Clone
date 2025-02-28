@@ -1,4 +1,7 @@
+import 'package:api_sample/widgets/movies_slider.dart';
+
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class GamesScreen extends StatefulWidget {
   const GamesScreen({super.key});
@@ -22,6 +25,55 @@ class _GamesScreenState extends State<GamesScreen> {
           ),
         ],
         // centerTitle: true,
+      ),
+      body:  SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+             
+            MoviesSlider(
+              borderRadius: 2,
+              containerHeight: 200,
+              containerWidth: 250,
+            ),
+              const SizedBox(
+                height: 32,
+              ),
+              Text(
+                'Trending Games',
+                style: GoogleFonts.aBeeZee(
+                  fontSize: 20,
+                ),
+              ),
+              const SizedBox(
+                height: 32,
+              ),
+              const MoviesSlider(
+                  borderRadius: 8,
+              containerHeight: 150,
+              containerWidth: 250,
+              ),
+              const SizedBox(
+                height: 32,
+              ),
+              Text(
+                'Best of Year',
+                style: GoogleFonts.aBeeZee(fontSize: 20),
+              ),
+              const SizedBox(
+                height: 32,
+              ),
+              const MoviesSlider(
+                  borderRadius: 8,
+              containerHeight: 150,
+              containerWidth: 250,
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
