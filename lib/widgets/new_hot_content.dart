@@ -1,98 +1,16 @@
-// import 'package:flutter/material.dart';
-// import 'package:google_fonts/google_fonts.dart';
-
-// class NewHotContent extends StatelessWidget {
-  
-//   const NewHotContent({
-//     super.key,
-//   });
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return SingleChildScrollView(
-//       physics: BouncingScrollPhysics(),
-//       child: Column(
-//         children: [
-//           Row(
-//             crossAxisAlignment: CrossAxisAlignment.center,
-//             children: [
-//               Text('Release \n Date '),
-//               SizedBox(width: 12),
-//               Container(
-//                 height: 200,
-//                 width: 290,
-//                 color: Colors.amber,
-//               ),
-//             ],
-//           ),
-//           SizedBox(height: 15),
-          
-        
-//           Container(
-//             padding: EdgeInsets.only(left: 77), // Fixed left padding aligned with container
-//             child: Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-                
-//          Row(
-//       crossAxisAlignment: CrossAxisAlignment.start, // This aligns children to the top
-//       children: [
-//         Container(
-//     width: 180,
-//     child: Text(
-//       'Basic Instinct',
-//       style: GoogleFonts.openSans(
-//         fontSize: 25,
-//         fontWeight: FontWeight.w900,
-//       ),
-//       overflow: TextOverflow.ellipsis,
-//       maxLines: 3,
-//     ),
-//         ),
-//         Expanded(child: SizedBox()), // This pushes icons to the end
-//         Container(
-//     width: 80, // Fixed width container for icons
-//     padding: EdgeInsets.only(top: 4), // Optional: Add some top padding to fine-tune position
-//     child: Row(
-//       mainAxisAlignment: MainAxisAlignment.end,
-//       children: [
-//         Icon(Icons.notifications_none),
-//         SizedBox(width: 12),
-//         Icon(Icons.info_outline),
-//       ],
-//     ),
-//         ),
-//         SizedBox(width: 10),
-//       ],
-//     ),
-//                 SizedBox(height: 20),
-//                 Text('Coming on sept 12'),
-//                 SizedBox(height: 20),
-//                 Text(
-//                   "Detective Nick is tasked with investigating the murder of Johnny Boz. He suspects Johnny's girlfriend Catherine to be responsible for the act. However, things take a turn when he falls for her.",
-//                   style: TextStyle(fontSize: 12),
-//                 ),
-//               ],
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
 
 
-// in new_hot_content.dart
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class NewHotContent extends StatelessWidget {
+class NewHotContent extends StatefulWidget {
   final String title;
   final String releaseDate;
   final String description;
   final String image;
     final String month;
     final String date;
+    final String overview;
   
   const NewHotContent({
     Key? key, 
@@ -102,8 +20,16 @@ class NewHotContent extends StatelessWidget {
     required this.image,
      required this.month,
       required this.date,
+      required this.overview,
   }) : super(key: key);
 
+  @override
+  State<NewHotContent> createState() => _NewHotContentState();
+}
+
+class _NewHotContentState extends State<NewHotContent> {
+  //   final TMDBService service = TMDBService();
+  // late Future<List<Movie>> _series;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -118,14 +44,15 @@ class NewHotContent extends StatelessWidget {
   mainAxisSize: MainAxisSize.min, 
   children: [
     Text(
-      month,
+    'Jan',
       style: GoogleFonts.openSans(
         fontSize: 12, 
         fontWeight: FontWeight.w900,
       ),
     ),
     Text(
-      date,
+      // widget.date[],
+      '12',
       style: GoogleFonts.openSans(
         fontSize: 28, 
         fontWeight: FontWeight.w900,
@@ -136,10 +63,10 @@ class NewHotContent extends StatelessWidget {
           ),
             SizedBox(width: 12),
             Container(
-              height: 200,
+              height: 300,
               width: 290,
-             child:  Image.asset(
-          image,
+             child:  Image.network(
+'https://image.tmdb.org/t/p/w500${widget.image}',
           fit: BoxFit.cover,
           height: 35,
           filterQuality: FilterQuality.high,
@@ -160,7 +87,7 @@ class NewHotContent extends StatelessWidget {
                   Container(
                     width: 180,
                     child: Text(
-                      title,
+                      widget.title,
                       style: GoogleFonts.openSans(
                         fontSize: 25,
                         fontWeight: FontWeight.w900,
@@ -186,16 +113,16 @@ class NewHotContent extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 20),
-              Text(releaseDate),
+              Text(widget.releaseDate),
               SizedBox(height: 20),
               Text(
-                description,
+                widget.overview,
                 style: TextStyle(fontSize: 12),
               ),
             ],
           ),
         ),
-        SizedBox(height: 30), // Add some spacing between list items
+        SizedBox(height: 30), 
       ],
     );
   }

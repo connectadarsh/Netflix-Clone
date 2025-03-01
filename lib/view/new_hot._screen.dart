@@ -1,3 +1,88 @@
+import 'package:api_sample/controller/services.dart';
+import 'package:api_sample/model/movie_model.dart';
+import 'package:api_sample/widgets/new_hot_content.dart';
+import 'package:flutter/material.dart';
+
+class NewHot extends StatefulWidget {
+  const NewHot({super.key});
+
+  @override
+  State<NewHot> createState() => _NewHotState();
+}
+
+class _NewHotState extends State<NewHot> {
+  final TMDBService service = TMDBService();
+  late Future<List<Movie>> _new;
+
+  @override
+  void initState() {
+    super.initState();
+    _new = toprated();
+  }
+
+  Future<List<Movie>> toprated() async {
+    try {
+      final results = await service.toprated();
+      return results.map((movie) => Movie.fromJson(movie)).toList();
+    } catch (e) {
+      return [];
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: const Text('New & Hot'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.download),
+            onPressed: () {},
+          ),
+          const SizedBox(width: 8),
+          IconButton(
+            icon: const Icon(Icons.search),
+            onPressed: () {},
+          ),
+        ],
+      ),
+      body: FutureBuilder<List<Movie>>(
+        future: _new,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError || !snapshot.hasData || snapshot.data!.isEmpty) {
+            return const Center(child: Text("Error loading movies"));
+          }
+
+          List<Movie> movies = snapshot.data!;
+
+          return ListView.builder(
+            physics: const BouncingScrollPhysics(),
+            itemCount: movies.length,
+            itemBuilder: (context, index) {
+              Movie movie = movies[index];
+              return NewHotContent(
+                title: movie.title, 
+                releaseDate: movie.releasedate, 
+                description: movie.title,
+                image: movie.posterPath, 
+                month: movie.releasedate, 
+                date: movie.releasedate, 
+                overview:movie.overview,
+              );
+            },
+          );
+        },
+      ),
+    );
+  }
+}
+
+
+
 // import 'package:flutter/material.dart';
 
 // class NewHot extends StatefulWidget {
@@ -199,82 +284,4 @@
 //     );
 //   }
 // }
-
-
-import 'package:api_sample/widgets/new_hot_content.dart';
-import 'package:flutter/material.dart';
-
-class NewHot extends StatefulWidget {
-  const NewHot({super.key});
-
-  @override
-  State<NewHot> createState() => _NewHotState();
-}
-
-class _NewHotState extends State<NewHot> {
-  // Sample data - in a real app, this would come from an API
-  final List<Map<String, String>> movieData = [
-    {
-      'title': 'Basic Instinct',
-      'releaseDate': 'Coming on Sept 12',
-      'description': "Detective Nick is tasked with investigating the murder of Johnny Boz. He suspects Johnny's girlfriend Catherine to be responsible for the act. However, things take a turn when he falls for her.",
-      'Image':'assets/basic.jpeg',
-      'month':'sep',
-      'date':'12'     
-    },
-    {
-      'title': 'The Shawshank Redemption',
-      'releaseDate': 'Coming on Oct 5',
-      'description': "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.",
-      'Image':'assets/apo.jpeg',
-      'month':'sep',
-      'date':'13'    
-    },
-    {
-      'title': 'The Godfather',
-      'releaseDate': 'Coming on Nov 18',
-      'description': "The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.",
-      'Image':'assets/MH.jpeg',
-      'month':'sep',
-      'date':'14'    
-    },
-    // Add more movies as needed
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        title: Text('New & Hot'),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.download),
-            onPressed: () {},
-          ),
-          SizedBox(width: 8),
-          IconButton(
-            icon: Icon(Icons.search),
-            onPressed: () {},
-          ),
-        ],
-      ),
-      body: ListView.builder(
-        physics: BouncingScrollPhysics(),
-        itemCount: movieData.length,
-        itemBuilder: (context, index) {
-          return NewHotContent(
-            title: movieData[index]['title'] ?? '',
-            releaseDate: movieData[index]['releaseDate'] ?? '',
-            description: movieData[index]['description'] ?? '',
-            image:movieData[index]['Image']?? '',
-            month: movieData[index]['month']??'',
-            date: movieData[index]['date']??'',
-          );
-        },
-      ),
-    );
-  }
-}
 

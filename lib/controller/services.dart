@@ -1,4 +1,5 @@
  import 'dart:convert';
+import 'dart:developer';
 import 'package:api_sample/controller/api_key.dart';
 import 'package:http/http.dart' as http;
 
@@ -7,7 +8,7 @@ class TMDBService {
 // https://api.themoviedb.org/3/movie/popular?8dba56e1c17d44e1a2da75fe9ceeef7d
   Future<dynamic> _get(String path) async {
     final uri = Uri.parse('$baseUrl$path?api_key=$apiKey');
-
+        log(uri.toString());
     final response = await http.get(uri);
 
     switch (response.statusCode) {

@@ -2,7 +2,7 @@
 
 import 'package:api_sample/colors.dart';
 import 'package:api_sample/view/control_bottom.dart';
-import 'package:api_sample/view/home_screeen.dart';
+
 import 'package:flutter/material.dart';
 
 void main(){

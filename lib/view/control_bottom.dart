@@ -49,7 +49,7 @@ class _ControlBottomState extends State<ControlBottom> {
             
           ),
             BottomNavigationBarItem(icon: Icon(Icons.person),
-            label: 'Games',
+            label: 'Profile',
             
           ),
         ],

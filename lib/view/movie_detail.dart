@@ -1,11 +1,15 @@
+import 'package:api_sample/model/movie_model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MovieDetail extends StatefulWidget {
-  const MovieDetail({super.key});
+    final Movie movieDetails;
+  const MovieDetail({super.key, required this.movieDetails,});
 
   @override
-  State<MovieDetail> createState() => _MovieDetailState();
+  State<MovieDetail> createState() => _MovieDetailState(
+    
+  );
 }
 
 class _MovieDetailState extends State<MovieDetail> {
@@ -39,8 +43,8 @@ class _MovieDetailState extends State<MovieDetail> {
               child: SizedBox(
                 width: double.infinity,
                 height: 400,
-                child: Image.asset(
-                  'assets/basic.jpeg',
+                child: Image.network(
+                        'https://image.tmdb.org/t/p/w500${widget.movieDetails.posterPath}',
                   fit: BoxFit.cover,
                   height: 35,
                   filterQuality: FilterQuality.high,

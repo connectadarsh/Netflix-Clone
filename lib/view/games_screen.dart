@@ -34,11 +34,11 @@ class _GamesScreenState extends State<GamesScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
              
-            MoviesSlider(
-              borderRadius: 2,
-              containerHeight: 200,
-              containerWidth: 250,
-            ),
+            // MoviesSlider(
+            //   borderRadius: 2,
+            //   containerHeight: 200,
+            //   containerWidth: 250,
+            // ),
               const SizedBox(
                 height: 32,
               ),
@@ -51,11 +51,11 @@ class _GamesScreenState extends State<GamesScreen> {
               const SizedBox(
                 height: 32,
               ),
-              const MoviesSlider(
-                  borderRadius: 8,
-              containerHeight: 150,
-              containerWidth: 250,
-              ),
+              // const MoviesSlider(
+              //     borderRadius: 8,
+              // containerHeight: 150,
+              // containerWidth: 250,
+              // ),
               const SizedBox(
                 height: 32,
               ),
@@ -66,11 +66,11 @@ class _GamesScreenState extends State<GamesScreen> {
               const SizedBox(
                 height: 32,
               ),
-              const MoviesSlider(
-                  borderRadius: 8,
-              containerHeight: 150,
-              containerWidth: 250,
-              ),
+              // const MoviesSlider(
+              //     borderRadius: 8,
+              // containerHeight: 150,
+              // containerWidth: 250,
+              // ),
             ],
           ),
         ),

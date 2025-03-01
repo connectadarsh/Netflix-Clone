@@ -1,3 +1,6 @@
+import 'package:api_sample/controller/services.dart';
+import 'package:api_sample/model/movie_model.dart';
+import 'package:api_sample/view/search_gridview.dart';
 import 'package:api_sample/widgets/movies_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,7 +15,21 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  
+    final TMDBService service = TMDBService();
+  late Future<List<Movie>> _topRated;
+  late Future<List<Movie>> _upcomingMovies;
+  late Future<List<Movie>> _trendingMovies;
+
+    @override
+  void initState() {
+    super.initState();
+   _topRated = fetchSeriesData();
+   _upcomingMovies=fetchUpcomingMovies();
+    _trendingMovies=toprated();
+  }
+
+ 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +50,9 @@ class _HomeScreenState extends State<HomeScreen> {
           SizedBox(width: 8,),
             IconButton(
             icon: Icon(Icons.search),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(builder:(context) => SearchPageGridView(),));
+            },
           ),
         ],
         // centerTitle: true,
@@ -53,7 +72,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 style: GoogleFonts.aBeeZee(fontSize: 20),
               ),
               SizedBox(height: 32),
-              const TrendingSlider(
+               TrendingSlider(
+                movieDetails: _trendingMovies,
                 containerHeight: 300,
                 containerWidth: 200,
                 borderRadius: 12,
@@ -70,7 +90,8 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(
                 height: 32,
               ),
-              const MoviesSlider(
+               MoviesSlider(
+                movieDetails: _topRated,
                 borderRadius: 8,
                 containerHeight: 200,
                 containerWidth: 150,
@@ -85,7 +106,8 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(
                 height: 32,
               ),
-              const MoviesSlider(
+               MoviesSlider(
+                movieDetails: _upcomingMovies,
                   borderRadius: 8,
                 containerHeight: 200,
                 containerWidth: 150,
@@ -97,4 +119,36 @@ class _HomeScreenState extends State<HomeScreen> {
       
     );
   }
+
+ Future<List<Movie>> fetchSeriesData() async {
+    try {
+      final results = await service.fetchMovies();
+      return results.map((movie) => Movie.fromJson(movie)).toList();
+    } catch (e) {
+      return [];
+    }
+  }
+
+   Future<List<Movie>> fetchUpcomingMovies() async {
+    try {
+      final results = await service.fetchUpcomingMovies();
+      return results.map((movie) => Movie.fromJson(movie)).toList();
+    } catch (e) {
+      return [];
+    }
+  }
+
+     Future<List<Movie>> toprated() async {
+    try {
+      final results = await service.toprated();
+      return results.map((movie) => Movie.fromJson(movie)).toList();
+    } catch (e) {
+      return [];
+    }
+  }
+
+
+
+
+
 }

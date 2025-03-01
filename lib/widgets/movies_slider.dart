@@ -4,38 +4,25 @@ import 'package:api_sample/view/movie_detail.dart';
 import 'package:flutter/material.dart';
 
 class MoviesSlider extends StatefulWidget {
-    final double containerWidth;
-   final double containerHeight;
-      final double borderRadius;
-  const MoviesSlider({
-    super.key,
-       required this.containerWidth,
-     required this.containerHeight,
-     required this.borderRadius
-    });
+  final double containerWidth;
+  final double containerHeight;
+  final double borderRadius;
+  final Future <List<Movie>>movieDetails;
+  const MoviesSlider(
+      {super.key,
+      required this.containerWidth,
+      required this.containerHeight,
+      required this.borderRadius,
+       required this.movieDetails,
+      
+      });
 
   @override
   State<MoviesSlider> createState() => _MoviesSliderState();
 }
 
 class _MoviesSliderState extends State<MoviesSlider> {
-  final TMDBService service = TMDBService();
-  late Future<List<Movie>> _series;
 
-  @override
-  void initState() {
-    super.initState();
-    _series = fetchSeriesData();
-  }
-
-  Future<List<Movie>> fetchSeriesData() async {
-    try {
-      final results = await service.fetchMovies();
-      return results.map((movie) => Movie.fromJson(movie)).toList();
-    } catch (e) {
-      return [];
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,14 +30,16 @@ class _MoviesSliderState extends State<MoviesSlider> {
       height: widget.containerHeight,
       width: double.infinity,
       child: FutureBuilder<List<Movie>>(
-        future: _series,
+        future: widget.movieDetails,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError || !snapshot.hasData || snapshot.data!.isEmpty) {
+          } else if (snapshot.hasError ||
+              !snapshot.hasData ||
+              snapshot.data!.isEmpty) {
             return const Center(child: Text("Error loading movies"));
           }
-          
+
           List<Movie> movies = snapshot.data!;
 
           return ListView.builder(
@@ -67,14 +56,17 @@ class _MoviesSliderState extends State<MoviesSlider> {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const MovieDetail()),
+                        MaterialPageRoute(
+                            builder: (context) =>  MovieDetail(movieDetails: movie,)),
                       );
                     },
                     child: SizedBox(
                       height: widget.containerHeight,
                       width: widget.containerWidth,
-                      child: Image.network(  'https://image.tmdb.org/t/p/w500${movie.posterPath}',fit: BoxFit.cover,),
-  
+                      child: Image.network(
+                        'https://image.tmdb.org/t/p/w500${movie.posterPath}',
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ),
