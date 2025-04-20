@@ -55,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
             },
           ),
         ],
-        // centerTitle: true,
+       
       ),
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),

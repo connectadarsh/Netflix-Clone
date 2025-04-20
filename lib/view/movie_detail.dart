@@ -32,7 +32,7 @@ class _MovieDetailState extends State<MovieDetail> {
             onPressed: () {},
           ),
         ],
-        // centerTitle: true,
+     
       ),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
@@ -80,7 +80,7 @@ class _MovieDetailState extends State<MovieDetail> {
                     height: 30,
                   ),
                   Text(
-                    'Basic Instinct',
+                    widget.movieDetails.title,
                     style: GoogleFonts.openSans(
                       fontSize: 25,
                       fontWeight: FontWeight.w900,
@@ -152,8 +152,8 @@ class _MovieDetailState extends State<MovieDetail> {
                   const SizedBox(
                     height: 10,
                   ),
-                  const Text(
-                      "Detective Nick is tasked with investigating the murder of Johnny Boz. He suspects Johnny's girlfriend Catherine to be responsible for the act. However, things take a turn when he falls for her."),
+                 Text(
+                    widget.movieDetails.overview  ),
                   const SizedBox(
                     height: 20,
                   ),
